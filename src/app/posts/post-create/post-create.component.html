@@ -1,1 +1,35 @@
-<p>post-create works!</p>
+<h1>Welcome to MEAN Application</h1>
+
+<mat-card>
+  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        placeholder="Enter title"
+        name="title"
+        ngModel
+        #title="ngModel"
+        required
+      />
+      <mat-error *ngIf="title.invalid">Please enter post title</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        placeholder="Enter some text.."
+        name="content"
+        ngModel
+        #content="ngModel"
+        required
+      ></textarea>
+      <mat-error *ngIf="content.invalid">Please enter post title</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" type="submit">
+      Save Post
+    </button>
+  </form>
+</mat-card>
