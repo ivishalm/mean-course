@@ -6,7 +6,8 @@ import {
   MatInputModule,
   MatButtonModule,
   MatToolbarModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,7 +38,8 @@ import { PostListComponent } from './posts/post-list/post-list.component';
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
