@@ -4,6 +4,11 @@
     <mat-expansion-panel-header>
       {{ post.title }}
     </mat-expansion-panel-header>
+
+    <div class="post-image">
+      <img [src]="post.imagePath" [alt]="post.title" />
+    </div>
+
     <p>{{ post.content }}</p>
 
     <mat-action-row>
@@ -15,4 +20,6 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No post added yet!</p>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
+  No post added yet!
+</p>
