@@ -9,10 +9,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class PostsService {
-  private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
+  private postsUpdated = new Subject<{ posts: Post[]; postCount: number }>();
   private posts: Post[] = [];
-
-  url = 'http://localhost:3000/';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -20,24 +18,30 @@ export class PostsService {
     const queryParams = `?pagesize=${postPerPage}&page=${currentPage}`;
 
     this.http
-      .get<{ message: string; posts: any, maxPosts: number }>(
+      .get<{ message: string; posts: any; maxPosts: number }>(
         'http://localhost:3000/api/posts' + queryParams
       )
       .pipe(
         map(postData => {
-          return {posts : postData.posts.map(post => {
-            return {
-              title: post.title,
-              content: post.content,
-              id: post._id,
-              imagePath: post.imagePath
-            };
-          }), maxPosts: postData.maxPosts};
+          return {
+            posts: postData.posts.map(post => {
+              return {
+                title: post.title,
+                content: post.content,
+                id: post._id,
+                imagePath: post.imagePath
+              };
+            }),
+            maxPosts: postData.maxPosts
+          };
         })
       )
       .subscribe(transformedPostsData => {
         this.posts = transformedPostsData.posts;
-        this.postsUpdated.next({ posts: [...this.posts], postCount: transformedPostsData.maxPosts});
+        this.postsUpdated.next({
+          posts: [...this.posts],
+          postCount: transformedPostsData.maxPosts
+        });
       });
   }
 
@@ -80,7 +84,9 @@ export class PostsService {
     } else {
       postData = {
         // tslint:disable-next-line:object-literal-shorthand
-        id: id, title: title, content: content,
+        id: id,
+        title: title,
+        content: content,
         imagePath: image
       };
     }
@@ -92,7 +98,6 @@ export class PostsService {
   }
 
   deletePost(postId: string) {
-    return this.http
-      .delete('http://localhost:3000/api/posts/' + postId);
+    return this.http.delete('http://localhost:3000/api/posts/' + postId);
   }
 }
