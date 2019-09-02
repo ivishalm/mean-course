@@ -29,7 +29,8 @@ export class PostsService {
                 title: post.title,
                 content: post.content,
                 id: post._id,
-                imagePath: post.imagePath
+                imagePath: post.imagePath,
+                creator: post.creator
               };
             }),
             maxPosts: postData.maxPosts
@@ -37,6 +38,8 @@ export class PostsService {
         })
       )
       .subscribe(transformedPostsData => {
+        console.log('transformed posts', transformedPostsData);
+
         this.posts = transformedPostsData.posts;
         this.postsUpdated.next({
           posts: [...this.posts],
@@ -55,6 +58,7 @@ export class PostsService {
       title: string;
       content: string;
       imagePath: string;
+      creator: string;
     }>('http://localhost:3000/api/posts/' + id);
   }
 
@@ -84,10 +88,9 @@ export class PostsService {
     } else {
       postData = {
         // tslint:disable-next-line:object-literal-shorthand
-        id: id,
-        title: title,
-        content: content,
-        imagePath: image
+        id: id, title: title, content: content,
+        imagePath: image,
+        creator: null
       };
     }
     this.http
